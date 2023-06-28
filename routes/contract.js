@@ -6,7 +6,6 @@ const router = express.Router()
 // moment 모듈 로드
 // 현재 시간을 가져와 format 설정!
 const moment = require('moment')
-const date = moment()
 
 // bobab 네트워크에 배포한 컨트랙트를 연동하기 위한 모듈 로드
 const Caver = require('caver-js')
@@ -47,7 +46,7 @@ module.exports = ()=>{
                             .view_content_no()
                             // view 함수는 수수료 발생 X (확인만 하기 때문)
                             // ==> 수수료를 낼 지갑 정보 필요 X
-                            .call // 그냥 call
+                            .call() // 그냥 call
         console.log('-> 글 갯수 확인하기: ', content_len);
         
         // 비어있는 배열 생성: 글 목록 담기
@@ -58,7 +57,7 @@ module.exports = ()=>{
             const result = await smartContract
                                  .methods
                                  .view_content(i) // view 함수
-                                 .call // 수수료 지갑 설정 필요 X 그냥 call
+                                 .call() // 수수료 지갑 설정 필요 X 그냥 call
             data.push(result)
         }
 
@@ -83,12 +82,13 @@ module.exports = ()=>{
         // 유저가 보낸 데이터를 변수에 대입, 확인
         const input_title = req.body._title
         const input_content = req.body._content
-        const input_writer = req.body._writer
+        const input_writer = account.address
         const input_image = req.body._image
 
         console.log("-> 유저가 작성한 내용: ", input_title, input_content, input_writer, input_image)
         
         // 현재 시간 필요
+        let date = moment()
         const create_dt = date.format('YYYY-MM-DD HH:mm')
         console.log("-> 작성일: ", create_dt)
 
@@ -105,13 +105,12 @@ module.exports = ()=>{
                               .send( // 수수료 지불자, 금액 지정
                                 {
                                     from : account.address, //account: 수수료를 지불할 지갑
-                                    gas : 200000
+                                    gas : 2000000 // max 가스비
                                 }
                               )
         console.log("-> 작성 결과: ", receipt)
         res.redirect('/contract')
     })
-    
 
     return router
 }
