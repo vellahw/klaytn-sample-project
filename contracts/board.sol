@@ -63,4 +63,19 @@ contract board {
     function view_content_no() public view returns(uint) {
         return (content_no);
     }
+
+    // 구조체를 리턴하는 함수 생성
+    function view_content(uint _no)
+        public view returns(
+            string memory, string memory, address, string memory, string memory
+        ){
+            // 변수 담기
+            string memory title = contents[_no].title;
+            string memory content = contents[_no].content;
+            address writer = contents[_no].writer;
+            string memory image = contents[_no].image;
+            string memory create_dt = contents[_no].create_dt;
+
+            return (title, content, writer, image, create_dt);
+        }
 }
