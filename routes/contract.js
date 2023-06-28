@@ -7,6 +7,26 @@ const router = express.Router()
 // 현재 시간을 가져와 format 설정!
 const moment = require('moment')
 
+// 파일 업로드시 사용하는 모듈
+const multer = require('multer')
+
+const storage = multer.diskStorage(
+    {
+        // 업로드 된 파일을 어디로 저장?
+        destination : function(req, file, cd){
+            cd(null, 'public/upload/')
+        },
+        // 파일이 저장될 이름 설정 (안 해주면 암호화된 키로 저장됨)
+        filename : function(req, file, cd){
+            cd(null, file.originalname)
+        }
+    }
+)
+
+const upload = multer({
+    storage : storage
+})
+
 // bobab 네트워크에 배포한 컨트랙트를 연동하기 위한 모듈 로드
 const Caver = require('caver-js')
 // 컨트랙트의 정보 로드
