@@ -65,7 +65,7 @@ module.exports = ()=>{
 
         // 응답하기
         // (리액트면 res.send로 데이터 보내주기..)
-        res.render('contents_list.ejs', {
+        res.render('content_list.ejs', {
             'data': data
         })
     })
@@ -114,10 +114,17 @@ module.exports = ()=>{
 
     // 글의 상세정보를 보여주는 페이지 api
     // localhost:3000/contract/view/글번호 [get]
-    router.get('/view/:_no', (req, res)=>{
+    router.get('/view/:_no', async (req, res)=>{
         const input_no = req.params._no
         console.log("-> 글번호: ", input_no)
-        res.send(input_no)
+
+        const data = await smartContract
+                           .methods
+                           .view_content(input_no)
+                           .call()
+        res.render('view_content.ejs', {
+            'data' : data
+        })
     })
 
     return router

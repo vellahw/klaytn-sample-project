@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 상세보기</title>
+    <%- include('header.ejs') %>
+    <style>
+        img {
+            width: 300px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>게시글 상세보기</h3><br>
+        <ul class="list-group">
+            <li class="list-group-item">제목: <%= data['0'] %></li>
+            <li class="list-group-item">내용: <%= data['1'] %></li>
+            <li class="list-group-item">작성자: <%= data['2'] %></li>
+            <li class="list-group-item">이미지: <img src="<%= data['3'] %>"></li>
+            <li class="list-group-item">작성일: <%= data['4'] %></li>
+          </ul>
+          <br>
+          <button type="button" onclick="location.href='/contract'" class="btn btn-danger">목록보기</button>
+          <button type="button" onclick="history.back()" class="btn btn-danger">뒤로가기</button>
+    </div>
+</body>
+</html>
