@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글쓰기</title>
+    <%- include('header.ejs') %>
+</head>
+<body>
+    <div class="container" style="padding: 50px;">
+        <form action="/contract/add2" method="post">
+            <span class="input-group-text" id="basic1">제목</span>
+            <input type="text" name="_title" class="form-control" aria-describedby="basic1">
+            <br>
+            <span class="input-group-text" id="basic2">내용</span>
+            <input type="text" name="_content" class="form-control" aria-describedby="basic2">
+            <br>
+            <span class="input-group-text" id="basic3">작성자</span>
+            <input type="text" name="_writer" class="form-control" aria-describedby="basic3">
+            <br>
+            <span class="input-group-text" id="basic4">이미지</span>
+            <input type="text" name="_image" class="form-control" aria-describedby="basic4">
+            <br>
+
+            <input type="submit" value="등록" class="btn btn-primary">
+        </form>
+    </div>
+</body>
+</html>

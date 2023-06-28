@@ -3,6 +3,11 @@ const express = require('express')
 // Router() 함수를 변수 router에 대입 
 const router = express.Router()
 
+// moment 모듈 로드
+// 현재 시간을 가져와 format 설정!
+const moment = require('moment')
+const date = moment()
+
 // bobab 네트워크에 배포한 컨트랙트를 연동하기 위한 모듈 로드
 const Caver = require('caver-js')
 // 컨트랙트의 정보 로드
@@ -66,5 +71,26 @@ module.exports = ()=>{
         })
     })
 
+    // 글의 내용을 추가할 수 있는 페이지
+    // location:3000/contract/add [get]
+    router.get('/add', (req, res)=>
+        res.render('add_content.ejs')
+    )
+    
+    // 글의 내용들을 contract를 이용하여 저장하는 api
+    // location:3000/contract/add2 [get]
+    router.get('/add2', (req, res)=>{
+        // 유저가 보낸 데이터를 변수에 대입, 확인
+        const input_title = req.body._title
+        const input_content = req.body._content
+        const input_writer = req.body._writer
+        const input_image = req.body._image
+
+        console.log("-> 작성한 글: ", input_title, input_content, input_writer, input_image)
+        
+        // 현재 시간 필요
+        const create_dt = date.format('YYYY-MM-DD HH:mm')
+    })
+    
     return router
 }
