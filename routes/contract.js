@@ -15,5 +15,5 @@ const caver = new Caver('https://api.baobab.klaytn.net:8651')
 // 배포된 컨트랙트를 연동
 const smartContract = new caver.Klay.Contract(
     contract_info.abi,
-    contract_info.networks.address
+    contract_info.networks['1001'].address
 )
