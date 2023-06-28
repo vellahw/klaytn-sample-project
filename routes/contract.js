@@ -78,22 +78,40 @@ module.exports = ()=>{
     )
     
     // 글의 내용들을 contract를 이용하여 저장하는 api
-    // location:3000/contract/add2 [get]
-    router.get('/add2', (req, res)=>{
+    // location:3000/contract/add2 [post]
+    router.post('/add2', async (req, res)=>{
         // 유저가 보낸 데이터를 변수에 대입, 확인
         const input_title = req.body._title
         const input_content = req.body._content
         const input_writer = req.body._writer
         const input_image = req.body._image
 
-        console.log("-> 작성한 글: ", input_title, input_content, input_writer, input_image)
+        console.log("-> 유저가 작성한 내용: ", input_title, input_content, input_writer, input_image)
         
         // 현재 시간 필요
         const create_dt = date.format('YYYY-MM-DD HH:mm')
         console.log("-> 작성일: ", create_dt)
 
-        
+        // smartContract(배포된 컨트랙트)에 있는 함수를 호출하여 데이터 저장
+        const receipt = await smartContract
+                              .methods
+                              .add_content( // 데이터가 변경되면 수수료 지불됨
+                                input_title,
+                                input_content,
+                                input_writer,
+                                input_image,
+                                create_dt
+                              )
+                              .send( // 수수료 지불자, 금액 지정
+                                {
+                                    from : account.address, //account: 수수료를 지불할 지갑
+                                    gas : 200000
+                                }
+                              )
+        console.log("-> 작성 결과: ", receipt)
+        res.redirect('/contract')
     })
     
+
     return router
 }
