@@ -112,5 +112,13 @@ module.exports = ()=>{
         res.redirect('/contract')
     })
 
+    // 글의 상세정보를 보여주는 페이지 api
+    // localhost:3000/contract/view/글번호 [get]
+    router.get('/view/:_no', (req, res)=>{
+        const input_no = req.params._no
+        console.log("-> 글번호: ", input_no)
+        res.send(input_no)
+    })
+
     return router
 }
