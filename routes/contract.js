@@ -98,12 +98,13 @@ module.exports = ()=>{
     
     // 글의 내용들을 contract를 이용하여 저장하는 api
     // location:3000/contract/add2 [post]
-    router.post('/add2', async (req, res)=>{
+    // upload.single('_image') ->  _image: input nate 값
+    router.post('/add2', upload.single('_image'), async (req, res)=>{
         // 유저가 보낸 데이터를 변수에 대입, 확인
         const input_title = req.body._title
         const input_content = req.body._content
         const input_writer = account.address
-        const input_image = req.body._image
+        const input_image = req.file.filename // 업로드된 파일
 
         console.log("-> 유저가 작성한 내용: ", input_title, input_content, input_writer, input_image)
         
