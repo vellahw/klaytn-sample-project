@@ -76,6 +76,6 @@ contract board {
             string memory image = contents[_no].image;
             string memory create_dt = contents[_no].create_dt;
 
-            return (title, content, writer, image, create_dt);
+            return (title, content, writer, image, create_dt); // 리턴값 형태는 JSON
         }
 }
