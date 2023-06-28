@@ -13,21 +13,21 @@ const contract_info = require('../build/contracts/board.json')
 const caver = new Caver('https://api.baobab.klaytn.net:8651')
 
 // 배포된 컨트랙트를 연동
-const smartContract = new caver.Klay.Contract(
+const smartContract = new caver.klay.Contract(
     // abi와 address 필요
     contract_info.abi,
     contract_info.networks['1001'].address
 )
 
 // 수수료를 지불할 지갑을 등록
-const account = caver.Klay.accounts.caverWithAccountKey(
+const account = caver.klay.accounts.createWithAccountKey(
     // 퍼블릭키, 프라이빗키 필요
     process.env.public_key,
     process.env.private_key
 )
 
 // caver.Klay에 지갑 등록
-caver.Klay.wallet.add(account) 
+caver.klay.accounts.wallet.add(account) 
 
 module.exports = ()=>{
     // 해당하는 파일의 api의 기본 경로: localhos:3000/contract
@@ -61,7 +61,7 @@ module.exports = ()=>{
 
         // 응답하기
         // (리액트면 res.send로 데이터 보내주기..)
-        res.render('content_list.ejs', {
+        res.render('contents_list.ejs', {
             'data': data
         })
     })
