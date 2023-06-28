@@ -49,9 +49,9 @@
 // baobab 테스트넷에 배포하기 위함
 require('dotenv').config();
 const HDWalletProvider = require('truffle-hdwallet-provider-klaytn') // klaytn provider
-const URL = "https://api.baobab.klayth.net:8651" 
+const URL = "https://api.baobab.klaytn.net:8651" 
 
-const private_key = process.env.priate_key
+const private_key = process.env.private_key
 
 module.exports = {
   /**
