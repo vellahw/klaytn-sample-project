@@ -58,4 +58,9 @@ contract board {
         contents[content_no].image = _image;
         contents[content_no].create_dt = _create_dt;
     }
+
+    // 글의 번호를 출력하는 함수
+    function view_content_no() public view returns(uint) {
+        return (content_no);
+    }
 }
