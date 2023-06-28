@@ -90,6 +90,9 @@ module.exports = ()=>{
         
         // 현재 시간 필요
         const create_dt = date.format('YYYY-MM-DD HH:mm')
+        console.log("-> 작성일: ", create_dt)
+
+        
     })
     
     return router
