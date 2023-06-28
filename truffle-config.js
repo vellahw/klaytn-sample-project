@@ -46,6 +46,13 @@
 
 // const HDWalletProvider = require('@truffle/hdwallet-provider');
 
+// baobab 테스트넷에 배포하기 위함
+require('dotenv').config();
+const HDWalletProvider = require('truffle-hdwallet-provider-klaytn') // klaytn provider
+const URL = "https://api.baobab.klayth.net:8651" 
+
+const private_key = process.env.priate_key
+
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -64,6 +71,15 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
+
+    // 바오밥 테스트넷 추가
+    baobab : {
+      provider : new HDWalletProvider(private_key, URL),
+      network_id : 1001,
+      gas : 2000000,
+      gasPrice : null
+    }
+
     // development: {
     //  host: "127.0.0.1",     // Localhost (default: none)
     //  port: 8545,            // Standard Ethereum port (default: none)
